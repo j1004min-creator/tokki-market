@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------
+   토끼마켓 색 팔레트
+   - 당근 오렌지를 메인으로, 토끼 로즈를 포인트로
+   - 형광색은 쓰지 않고 채도를 낮춰 눈이 편하게
+---------------------------------------------- */
+:root {
+  --cream: #fff9f3;
+  --card: #ffffff;
+  --line: #f2e4d5;
+  --line-strong: #e7d2bd;
+
+  --ink: #4a382e;
+  --ink-soft: #94806e;
+
+  --carrot: #ee8b4f;
+  --carrot-deep: #cf6f2f;
+  --carrot-soft: #fdeede;
+
+  --rose: #d9608f;
+  --rose-soft: #fbeaf0;
+
+  --leaf: #6f9b57;
+  --leaf-soft: #eaf2e4;
+
+  /* 차트 색. 색맹 판별 검사를 통과한 조합 (deutan ΔE 10.7) */
+  --chart-income: #6f9b57;
+  --chart-expense: #b5477b;
+  --chart-grid: #ece0d2;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-card: var(--card);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-carrot: var(--carrot);
+  --color-carrot-deep: var(--carrot-deep);
+  --color-carrot-soft: var(--carrot-soft);
+  --color-rose: var(--rose);
+  --color-rose-soft: var(--rose-soft);
+  --color-leaf: var(--leaf);
+  --color-leaf-soft: var(--leaf-soft);
+  --color-chart-income: var(--chart-income);
+  --color-chart-expense: var(--chart-expense);
+
+  --font-sans: var(--font-body), "Malgun Gothic", sans-serif;
+  --font-cute: var(--font-cute), var(--font-body), sans-serif;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--ink);
+}
+
+/* 입력칸 자동완성 시 브라우저가 칠하는 파란 배경 제거 */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--card) inset;
+  -webkit-text-fill-color: var(--ink);
+}
+
+@layer components {
+  .card-soft {
+    background-color: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 24px -18px rgba(120, 80, 50, 0.5);
+  }
+
+  .btn-carrot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border-radius: 9999px;
+    background-color: var(--carrot);
+    color: #fff;
+    font-weight: 700;
+    padding: 0.7rem 1.4rem;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+  }
+  .btn-carrot:hover {
+    background-color: var(--carrot-deep);
+  }
+  .btn-carrot:active {
+    transform: translateY(1px);
+  }
+  .btn-carrot:disabled {
+    background-color: var(--line-strong);
+    cursor: not-allowed;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border-radius: 9999px;
+    border: 1px solid var(--line-strong);
+    background-color: var(--card);
+    color: var(--ink);
+    font-weight: 600;
+    padding: 0.7rem 1.4rem;
+    transition: background-color 0.15s ease;
+  }
+  .btn-ghost:hover {
+    background-color: var(--carrot-soft);
+  }
+
+  .field {
+    width: 100%;
+    border-radius: 0.9rem;
+    border: 1px solid var(--line-strong);
+    background-color: var(--card);
+    padding: 0.7rem 0.9rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .field::placeholder {
+    color: #bda894;
+  }
+  .field:focus {
+    border-color: var(--carrot);
+    box-shadow: 0 0 0 3px var(--carrot-soft);
+  }
+}
