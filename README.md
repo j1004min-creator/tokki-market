@@ -84,6 +84,23 @@ npm run dev
 
 `.env.local` 이 필요합니다 (`.env.example` 참고).
 
+```
+SUPABASE_URL=https://<project-ref>.supabase.co
+SUPABASE_ANON_KEY=sb_publishable_xxxxxxxx
+```
+
+> **`NEXT_PUBLIC_` 접두사가 없는 이유**
+> Next.js 는 `NEXT_PUBLIC_` 이 붙은 변수만 브라우저 번들에 넣어 줍니다.
+> 이 앱은 Supabase 를 서버 컴포넌트·서버 액션·`proxy.ts` 에서만 쓰기 때문에
+> 접두사가 필요 없고, 덕분에 키가 브라우저로 내려가지도 않습니다.
+> `src/lib/supabase/env.ts` 는 `import "server-only"` 로 막아 두어서,
+> 실수로 클라이언트 컴포넌트에서 가져다 쓰면 **빌드가 실패하며 알려 줍니다.**
+> 나중에 브라우저에서 Supabase 를 직접 써야 하면 (예: 실시간 구독)
+> 그때 `NEXT_PUBLIC_` 변수를 따로 하나 더 만들어야 합니다.
+
+배포 플랫폼(Vercel 등)에서도 같은 두 변수를 Environment Variables 에 넣고
+**다시 배포**해야 합니다. 환경변수는 빌드할 때 주입되기 때문입니다.
+
 > 이 PC에서는 node가 PATH에 안 잡힐 수 있습니다. 그럴 땐 PowerShell에서
 > `$env:PATH = "C:\Program Files\nodejs;" + $env:PATH` 를 먼저 실행하세요.
 

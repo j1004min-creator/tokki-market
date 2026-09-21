@@ -47,9 +47,3 @@ export function monthLabel(key: string): string {
 export function shortMonthLabel(key: string): string {
   return `${Number(key.split("-")[1])}월`;
 }
-
-/** 매물 사진의 공개 URL. 사진이 없으면 null */
-export function productImageUrl(path: string | null): string | null {
-  if (!path) return null;
-  return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/market-images/${path}`;
-}

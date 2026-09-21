@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { formatRelativeTime, formatWon, productImageUrl } from "@/lib/format";
+import { formatRelativeTime, formatWon } from "@/lib/format";
+import { productImageUrl } from "@/lib/supabase/env";
 import type { ProductListItem } from "@/lib/types";
 
 import { LowestBadge } from "./lowest-badge";

@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 
 import { FormMessage } from "@/components/form-message";
 import { LowestBadge } from "@/components/lowest-badge";
-import { formatRelativeTime, formatWon, productImageUrl } from "@/lib/format";
+import { formatRelativeTime, formatWon } from "@/lib/format";
+import { productImageUrl } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
 import type { ProductListItem } from "@/lib/types";
 
