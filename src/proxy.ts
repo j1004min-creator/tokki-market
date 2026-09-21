@@ -1,6 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+import { readSupabaseEnv } from "@/lib/supabase/env";
+
 /** 로그인해야 들어갈 수 있는 경로 */
 const PROTECTED_PATHS = ["/mypage", "/cart", "/ledger", "/products/new"];
 /** 이미 로그인했다면 들어갈 필요가 없는 경로 */
@@ -12,10 +14,11 @@ const GUEST_ONLY_PATHS = ["/login", "/signup"];
  */
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
+  const { url, key } = readSupabaseEnv();
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    url,
+    key,
     {
       cookies: {
         getAll() {

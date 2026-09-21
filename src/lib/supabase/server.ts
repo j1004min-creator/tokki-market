@@ -1,6 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
+import { readSupabaseEnv } from "./env";
+
 /**
  * 서버(서버 컴포넌트 / 서버 액션 / 라우트 핸들러)에서 쓰는 Supabase 클라이언트.
  * 요청마다 새로 만들어야 한다. 전역 변수에 담아 재사용하면 다른 사용자의
@@ -8,10 +10,11 @@ import { cookies } from "next/headers";
  */
 export async function createClient() {
   const cookieStore = await cookies();
+  const { url, key } = readSupabaseEnv();
 
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    url,
+    key,
     {
       cookies: {
         getAll() {
