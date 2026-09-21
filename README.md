@@ -104,6 +104,18 @@ SUPABASE_ANON_KEY=sb_publishable_xxxxxxxx
 > 이 PC에서는 node가 PATH에 안 잡힐 수 있습니다. 그럴 땐 PowerShell에서
 > `$env:PATH = "C:\Program Files\nodejs;" + $env:PATH` 를 먼저 실행하세요.
 
+## 샘플 사진 붙이기
+
+`scripts/sample-images/*.svg` 그림을 PNG 로 구워 Storage 에 올리고 매물에 붙입니다.
+서비스 키가 아니라 **실제 계정으로 로그인해서** 올리기 때문에, Storage 정책과 RLS 가
+제대로 걸려 있는지도 같이 확인됩니다.
+
+```bash
+node --env-file=.env.local scripts/seed-sample-images.mjs 이메일:비밀번호
+```
+
+이미 사진이 있는 매물은 건너뜁니다.
+
 ## 데이터베이스
 
 `supabase/migrations/` 에 적용한 SQL을 순서대로 남겨 둡니다. 원격 DB에는 이미 적용돼 있습니다.
