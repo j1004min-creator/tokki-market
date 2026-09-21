@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 
+import { ProductForm } from "@/components/product-form";
+import { createProductAction } from "@/lib/product-actions";
 import { createClient } from "@/lib/supabase/server";
 import type { Category } from "@/lib/types";
-
-import { ProductForm } from "./product-form";
 
 export const metadata = { title: "매물 등록 · 토끼마켓" };
 
@@ -28,7 +28,12 @@ export default async function NewProductPage() {
       </p>
 
       <div className="card-soft mt-5 p-6">
-        <ProductForm categories={(categories ?? []) as Category[]} />
+        <ProductForm
+          action={createProductAction}
+          categories={(categories ?? []) as Category[]}
+          submitLabel="등록하기"
+          pendingLabel="매물 올리는 중…"
+        />
       </div>
     </div>
   );

@@ -40,6 +40,7 @@ export default async function ProductDetailPage({
   const user = userData.user;
   const isMine = user?.id === item.seller_id;
   const isSold = item.status === "sold";
+  const isReserved = item.status === "reserved";
   const imageUrl = productImageUrl(item.image_path);
 
   // 같은 물건의 다른 매물 (가격 낮은 순)
@@ -155,17 +156,33 @@ export default async function ProductDetailPage({
             <div className="flex flex-col gap-2">
               <p className="rounded-xl bg-carrot-soft px-4 py-3 text-center text-sm font-semibold text-carrot-deep">
                 내가 올린 매물이에요
+                {isReserved && " · 지금은 예약중이라 아무도 살 수 없어요"}
               </p>
-              <DeleteProductButton productId={item.id} />
+              <div className="flex flex-col gap-2 sm:flex-row [&>*]:flex-1">
+                <Link href={`/products/${item.id}/edit`} className="btn-ghost">
+                  ✏️ 매물 수정
+                </Link>
+                <DeleteProductButton productId={item.id} />
+              </div>
             </div>
           ) : user ? (
-            <div className="flex flex-col gap-2 sm:flex-row [&>form]:flex-1">
-              <CartToggleButton productId={item.id} inCart={inCart} />
-              <BuyButton
-                productId={item.id}
-                price={item.price}
-                title={item.title}
-              />
+            <div className="flex flex-col gap-2">
+              {isReserved && (
+                <p className="rounded-xl bg-carrot-soft px-4 py-3 text-center text-sm font-semibold text-carrot-deep">
+                  판매자가 예약중으로 바꿔 둔 매물이에요. 장바구니에 담아 두고
+                  기다려 보세요.
+                </p>
+              )}
+              <div className="flex flex-col gap-2 sm:flex-row [&>form]:flex-1">
+                <CartToggleButton productId={item.id} inCart={inCart} />
+                {!isReserved && (
+                  <BuyButton
+                    productId={item.id}
+                    price={item.price}
+                    title={item.title}
+                  />
+                )}
+              </div>
             </div>
           ) : (
             <Link

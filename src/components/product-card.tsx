@@ -41,6 +41,12 @@ export function ProductCard({ product }: { product: ProductListItem }) {
             <LowestBadge count={product.same_model_count} />
           </span>
         )}
+
+        {!sold && product.status === "reserved" && (
+          <span className="absolute top-2 right-2 rounded-full bg-ink/75 px-2 py-1 text-xs font-bold text-white">
+            예약중
+          </span>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col gap-1 p-3">
