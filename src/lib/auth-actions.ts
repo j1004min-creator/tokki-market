@@ -22,6 +22,17 @@ function safeNext(next: FormDataEntryValue | null): string {
   return "/";
 }
 
+/**
+ * 가입 직후 "가입이 된 건가?" 싶지 않도록 환영 인사를 띄울 표시를 붙인다.
+ * (홈 화면이 welcome=1 을 보고 인사한다)
+ */
+function withWelcome(target: string): string {
+  const [pathname, query] = target.split("?");
+  const params = new URLSearchParams(query);
+  params.set("welcome", "1");
+  return `${pathname}?${params.toString()}`;
+}
+
 /** Supabase 가 돌려주는 영어 메시지를 사람이 읽을 말로 바꾼다. */
 function toKoreanMessage(message: string): string {
   const map: Record<string, string> = {
@@ -101,7 +112,7 @@ export async function signUpAction(
   }
 
   revalidatePath("/", "layout");
-  redirect(safeNext(formData.get("next")));
+  redirect(withWelcome(safeNext(formData.get("next"))));
 }
 
 export async function signInAction(

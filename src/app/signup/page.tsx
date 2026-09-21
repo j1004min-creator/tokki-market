@@ -35,7 +35,9 @@ export default async function SignupPage({
       <p className="text-sm text-ink-soft">
         이미 계정이 있으신가요?{" "}
         <Link
-          href="/login"
+          href={
+            next === "/" ? "/login" : `/login?next=${encodeURIComponent(next)}`
+          }
           className="font-bold text-carrot-deep underline underline-offset-4"
         >
           로그인

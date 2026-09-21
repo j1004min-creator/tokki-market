@@ -14,8 +14,8 @@ export function NavTabs({ cartCount }: { cartCount: number }) {
   const pathname = usePathname();
 
   return (
-    <nav className="border-b border-line bg-card/70">
-      <ul className="mx-auto flex max-w-5xl gap-1 px-2">
+    <nav className="overflow-x-auto border-b border-line bg-card/70">
+      <ul className="mx-auto flex w-max max-w-5xl gap-1 px-2 sm:w-auto">
         {TABS.map((tab) => {
           const active =
             tab.href === "/" ? pathname === "/" : pathname.startsWith(tab.href);
@@ -25,7 +25,7 @@ export function NavTabs({ cartCount }: { cartCount: number }) {
               <Link
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
-                className={`relative flex items-center gap-1.5 border-b-2 px-3 py-2.5 text-sm font-semibold transition-colors ${
+                className={`relative flex items-center gap-1.5 border-b-2 px-3 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors ${
                   active
                     ? "border-carrot text-carrot-deep"
                     : "border-transparent text-ink-soft hover:text-ink"

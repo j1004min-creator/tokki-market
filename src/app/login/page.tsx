@@ -34,7 +34,9 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
       <p className="text-sm text-ink-soft">
         아직 회원이 아니신가요?{" "}
         <Link
-          href="/signup"
+          href={
+            next === "/" ? "/signup" : `/signup?next=${encodeURIComponent(next)}`
+          }
           className="font-bold text-carrot-deep underline underline-offset-4"
         >
           회원가입

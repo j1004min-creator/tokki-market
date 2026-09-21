@@ -13,6 +13,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
   const params = await searchParams;
   const category = firstParam(params.category);
   const query = firstParam(params.q).trim();
+  const justSignedUp = firstParam(params.welcome) === "1";
 
   const supabase = await createClient();
 
@@ -40,8 +41,35 @@ export default async function Home({ searchParams }: PageProps<"/">) {
   const productList = (products ?? []) as ProductListItem[];
   const lowestCount = productList.filter((p) => p.is_lowest).length;
 
+  // 가입 직후에만 닉네임을 불러와 인사한다
+  let welcomeNickname: string | null = null;
+  if (justSignedUp && userData.user) {
+    const { data } = await supabase
+      .from("market_profiles")
+      .select("nickname")
+      .eq("id", userData.user.id)
+      .maybeSingle();
+    welcomeNickname = data?.nickname ?? null;
+  }
+
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-6">
+      {welcomeNickname && (
+        <section className="card-soft mb-6 flex items-center gap-4 border-leaf/30 bg-leaf-soft p-5">
+          <RabbitMascot size={56} happy className="shrink-0" />
+          <div>
+            <p className="font-cute text-lg text-ink">
+              가입 완료! 환영해요, {welcomeNickname}님 🥕
+            </p>
+            <p className="mt-1 text-sm text-ink-soft">
+              이제 매물을 사고팔 수 있어요. 오른쪽 위{" "}
+              <strong className="font-semibold text-ink">＋ 판매하기</strong>로 첫
+              매물을 올려 보세요.
+            </p>
+          </div>
+        </section>
+      )}
+
       {!userData.user && (
         <section className="card-soft mb-6 flex items-center gap-4 bg-linear-to-br from-carrot-soft to-card p-5">
           <RabbitMascot size={64} happy className="shrink-0" />
