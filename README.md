@@ -106,7 +106,10 @@ SUPABASE_ANON_KEY=sb_publishable_xxxxxxxx
 
 ## 샘플 사진 붙이기
 
-`scripts/sample-images/*.svg` 그림을 PNG 로 구워 Storage 에 올리고 매물에 붙입니다.
+[Unsplash](https://unsplash.com/license) 사진을 받아 800×600 으로 잘라 Storage 에 올리고
+매물에 붙입니다. 어떤 매물에 어떤 사진을 쓰는지는 `scripts/seed-sample-images.mjs` 의
+`PHOTOS` 에 적혀 있고, 출처는 `scripts/sample-images/CREDITS.md` 에 남겨 두었습니다.
+
 서비스 키가 아니라 **실제 계정으로 로그인해서** 올리기 때문에, Storage 정책과 RLS 가
 제대로 걸려 있는지도 같이 확인됩니다.
 
@@ -114,7 +117,11 @@ SUPABASE_ANON_KEY=sb_publishable_xxxxxxxx
 node --env-file=.env.local scripts/seed-sample-images.mjs 이메일:비밀번호
 ```
 
-이미 사진이 있는 매물은 건너뜁니다.
+`--keep` 을 붙이면 이미 사진이 있는 매물은 건너뜁니다.
+
+> 파일 이름에 사진 번호를 넣습니다. 같은 경로에 덮어쓰면 브라우저와 이미지 최적화
+> 캐시가 **옛 사진을 계속 보여 주기** 때문입니다. 앱에서 매물 사진을 바꿀 때도
+> 같은 이유로 늘 새 경로에 올립니다.
 
 ## 데이터베이스
 
@@ -128,7 +135,7 @@ node --env-file=.env.local scripts/seed-sample-images.mjs 이메일:비밀번호
 | `market_cart_items` | 장바구니 (user_id + product_id) |
 | `market_products_view` | 목록용 뷰. 판매자·카테고리·최저가 여부 포함 |
 | `market_buy_product()` | 구매 처리 함수 (로그인한 사용자만 호출 가능) |
-| `market-images` | 매물 사진 버킷. 읽기 공개, 쓰기는 본인 폴더만 |
+| `market-images` | 매물 사진 버킷. 읽기 공개, 쓰기·덮어쓰기·삭제는 본인 폴더만 |
 
 모든 테이블에 RLS를 켜 뒀습니다. Supabase 보안 린트가 `market_buy_product` 를
 "로그인 사용자가 호출 가능한 SECURITY DEFINER 함수"라고 경고하는데, **의도한 대로**입니다.
