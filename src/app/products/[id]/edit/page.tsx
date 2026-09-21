@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 import { ProductForm } from "@/components/product-form";
-import { productImageUrl } from "@/lib/supabase/env";
+import { productImageUrl } from "@/lib/supabase/image";
 import { updateProductAction } from "@/lib/product-actions";
 import { createClient } from "@/lib/supabase/server";
 import type { Category } from "@/lib/types";

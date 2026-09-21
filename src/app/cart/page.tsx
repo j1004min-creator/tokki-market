@@ -6,7 +6,7 @@ import { LowestBadge } from "@/components/lowest-badge";
 import { RabbitMascot } from "@/components/rabbit-mascot";
 import { removeFromCartAction } from "@/lib/cart-actions";
 import { formatWon } from "@/lib/format";
-import { productImageUrl } from "@/lib/supabase/env";
+import { productImageUrl } from "@/lib/supabase/image";
 import { buyProductAction } from "@/lib/product-actions";
 import { createClient } from "@/lib/supabase/server";
 import type { ProductListItem } from "@/lib/types";

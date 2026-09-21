@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdeede"/>
+      <stop offset="1" stop-color="#fff9f3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <circle cx="400" cy="300" r="205" fill="#fbe0c9" opacity="0.5"/>
+  <ellipse cx="400" cy="512" rx="230" ry="22" fill="#4a382e" opacity="0.10"/>
+
+  <!-- 스탠드 조명 -->
+  <rect x="196" y="196" width="12" height="118" rx="6" fill="#cf6f2f"/>
+  <path d="M202 196 h74" stroke="#cf6f2f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M248 204 l44 0 l16 44 l-76 0 Z" fill="#ee8b4f"/>
+  <ellipse cx="202" cy="316" rx="34" ry="9" fill="#cf6f2f"/>
+  <circle cx="270" cy="262" r="9" fill="#ffe9c9"/>
+
+  <!-- 책 두 권 -->
+  <rect x="470" y="288" width="112" height="16" rx="4" fill="#6f9b57"/>
+  <rect x="482" y="272" width="96" height="16" rx="4" fill="#d9608f"/>
+
+  <!-- 화분 -->
+  <path d="M612 268 q22 -46 44 -6 q18 -34 30 6" stroke="#6f9b57" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <path d="M608 276 h84 l-11 40 h-62 Z" fill="#cf6f2f"/>
+
+  <!-- 상판 -->
+  <rect x="120" y="316" width="560" height="30" rx="10" fill="#d9a86c" stroke="#c08f56" stroke-width="3"/>
+
+  <!-- 다리 -->
+  <rect x="166" y="346" width="26" height="170" rx="8" fill="#c99a63"/>
+  <rect x="608" y="346" width="26" height="170" rx="8" fill="#c99a63"/>
+  <rect x="166" y="424" width="468" height="14" rx="7" fill="#c99a63" opacity="0.75"/>
+</svg>

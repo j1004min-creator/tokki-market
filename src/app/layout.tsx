@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Jua, Noto_Sans_KR } from "next/font/google";
 
+import { SetupNotice } from "@/components/setup-notice";
 import { SiteHeader } from "@/components/site-header";
+import { hasSupabaseEnv } from "@/lib/supabase/env";
 
 import "./globals.css";
 
@@ -36,8 +38,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${jua.variable} ${notoSansKr.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
+        {hasSupabaseEnv() ? (
+          <>
+            <SiteHeader />
+            <main className="flex-1">{children}</main>
+          </>
+        ) : (
+          <main className="flex-1">
+            <SetupNotice />
+          </main>
+        )}
         <footer className="border-t border-line px-4 py-6 text-center text-sm text-ink-soft">
           🥕 토끼마켓 · 공부하면서 한 단계씩 만들어 가는 중고거래 마켓
         </footer>

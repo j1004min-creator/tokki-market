@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-import { readSupabaseEnv } from "@/lib/supabase/env";
+import { hasSupabaseEnv, readSupabaseEnv } from "@/lib/supabase/env";
 
 /** 로그인해야 들어갈 수 있는 경로 */
 const PROTECTED_PATHS = ["/mypage", "/cart", "/ledger", "/products/new"];
@@ -13,6 +13,11 @@ const GUEST_ONLY_PATHS = ["/login", "/signup"];
  * 요청마다 Supabase 세션 쿠키를 갱신해 주는 역할을 한다.
  */
 export async function proxy(request: NextRequest) {
+  // 환경변수가 없으면 여기서 터뜨리지 않는다.
+  // 모든 요청이 500 이 되어 버려서 무엇이 문제인지조차 볼 수 없기 때문이다.
+  // 대신 화면(layout)이 "무엇을 넣어야 하는지" 알려 준다.
+  if (!hasSupabaseEnv()) return NextResponse.next({ request });
+
   let response = NextResponse.next({ request });
   const { url, key } = readSupabaseEnv();
 
